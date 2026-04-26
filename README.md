@@ -1,6 +1,31 @@
 # simple-map-go-ver
 
-## How to run benchmarks
+## Part 1: C to Go transition
+
+This project started from a C hash map with separate chaining and recreated the same behavior in Go.
+The core design stayed the same (string keys, bucket array, linked-list collision handling, resize when full), but implementation details changed:
+- C used manual memory management and `void*` values.
+- Go uses garbage collection and `any` values with type assertions when needed.
+- API concepts were mapped directly (`map_set/map_get/map_del` -> `Set/Get/Delete`) to keep behavior faithful.
+
+
+## How to test the Go version
+
+Run all Go tests in the project:
+
+```bash
+make test
+```
+
+Or run only the map package tests directly:
+
+```bash
+go test ./simplemap -v
+```
+
+If tests pass, you should see `PASS` and an `ok` line for the package.
+
+## Part 2: How to run benchmarks
 
 From this folder, run:
 
@@ -18,6 +43,7 @@ You can also run them separately:
 make bench-c
 make bench
 ```
+
 
 ## How to interpret the results
 
